@@ -1,4 +1,4 @@
-# Token-based authentication example using ArcGIS Runtime and ArcGIS Portal
+# Token-based authentication example using ArcGIS Runtime
 Example implementation how to use token-based authentication using ArcGIS Runtime SDK for .NET.
 
 ![Application demo](portal_authentication_demo.gif)
