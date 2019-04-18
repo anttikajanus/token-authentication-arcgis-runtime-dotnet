@@ -1,0 +1,93 @@
+﻿<Window x:Class="TokenAuthentication.Example.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:prism="http://prismlibrary.com/"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:views="clr-namespace:TokenAuthentication.Example.Views"
+        xmlns:converters="clr-namespace:TokenAuthentication.Example.Converters"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        mc:Ignorable="d"
+        Title="{Binding Title}" Height="450" Width="800" x:Name="root">
+    <Window.Resources>
+        <converters:InvertableBooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <materialDesign:DrawerHost 
+                Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="3"
+                HorizontalAlignment="Stretch"                    
+                VerticalAlignment="Stretch">
+            <materialDesign:DrawerHost.LeftDrawerContent>
+                <materialDesign:Card VerticalAlignment="Stretch" Margin="1" >
+                    <Grid Width="200"> 
+                        <Button 
+                            Margin="4"
+                            Height="48" Width="48" 
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Style="{StaticResource MaterialDesignFlatButton}"
+                            Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
+                            CommandParameter="{x:Static Dock.Left}"
+                            Foreground="Black" HorizontalContentAlignment="Center" Padding="0">
+                            <materialDesign:PackIcon Kind="ArrowLeft" Height="32" Width="32"/>
+                        </Button>
+                    </Grid>
+                </materialDesign:Card>
+            </materialDesign:DrawerHost.LeftDrawerContent>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <materialDesign:ColorZone Grid.ColumnSpan="3" Mode="Light" materialDesign:ShadowAssist.ShadowDepth="Depth1" Height="60">
+                    <Grid>
+                        <TextBlock
+                        Style="{DynamicResource MaterialDesignTitleTextBlock}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        Text="{Binding Title}" Foreground="Black" Margin="58,0">
+                        </TextBlock>
+                        <views:UserProfileView HorizontalAlignment="Right" Margin="5,0,12,0"/>
+                    </Grid>
+                </materialDesign:ColorZone>
+                <Button 
+                    Margin="4,4,4,4"
+                    Height="48" Width="48" 
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}"
+                    CommandParameter="{x:Static Dock.Left}"
+                    Foreground="Black" HorizontalContentAlignment="Center" Padding="0">
+                    <materialDesign:PackIcon Kind="HamburgerMenu" Height="32" Width="32"/>
+                </Button>
+                <views:WebMapsView Grid.Row="1" Grid.Column="1"></views:WebMapsView>
+            </Grid>
+        </materialDesign:DrawerHost>
+
+        <views:LoginView Grid.ColumnSpan="3" Grid.RowSpan="3"
+                         Visibility="{Binding ElementName=root, Path=DataContext.RequiresLogin, Converter={StaticResource boolToVisibilityConverter}}"/>
+    </Grid>
+</Window>

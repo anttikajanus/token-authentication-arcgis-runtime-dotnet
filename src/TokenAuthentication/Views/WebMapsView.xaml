@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="TokenAuthentication.Example.Views.WebMapsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="Transparent"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" x:Name="root">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock 
+            Text="Available maps" 
+            Style="{StaticResource MaterialDesignHeadlineTextBlock}"
+            Margin="0,20,0,10"/>
+        <Grid x:Name="itemsPanel" Margin="10,0,5,0" Grid.Row="1">
+            <ListView Margin="10,1,0,-1"
+                  HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Stretch"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  ItemsSource="{Binding WebMaps}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <materialDesign:Card Padding="5" Margin="5" Height="180">
+                            <Grid >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition />
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="260"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="{Binding ThumbnailUri}" Grid.RowSpan="5" Margin="5"></Image>
+                                <TextBlock Text="{Binding Title}" Style="{StaticResource MaterialDesignTitleTextBlock}" Grid.Column="1" Margin="5"/>
+                                <TextBlock Text="{Binding Snippet}" Grid.Row="2" Grid.Column="1" TextWrapping="WrapWithOverflow" Margin="5,10"/>
+                            </Grid>
+                        </materialDesign:Card>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </Grid>
+</UserControl>
